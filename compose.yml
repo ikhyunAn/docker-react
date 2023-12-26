@@ -1,0 +1,20 @@
+services:
+  react-web:
+    build:
+      context: .  # indicates the build will be from the current directory
+      dockerfile: Dockerfile.dev  # indicates the alternative Dockerfile
+    ports:
+      - "3000:3000" #outside to inside
+    volumes:
+      - /app/node_modules # does not map against the local machine
+      - .:/app  # maps the current local folder to inside the container
+  
+  # 2nd service added for testing. Cannot be interactive.
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
