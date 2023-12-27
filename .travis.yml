@@ -1,0 +1,9 @@
+sudo: required  # super user-levl permission is given
+services:
+  - docker  # installs a copy of docker into the running container
+
+before_install: # commands before tests
+  - docker build -t anjohn0077/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true anjohn0077/docker-react npm run test
